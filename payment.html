@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Send Money</title>
+<link rel="stylesheet" href="est.css">
+<style>
+/* RESET */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI;
+}
+
+body{
+background:#f2f2f2;
+}
+
+/* HEADER */
+.header{
+background:#e2136e;
+color:white;
+padding:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:18px;
+font-weight:bold;
+}
+
+/* CARD */
+.card{
+background:#fff;
+padding:15px;
+margin-top:5px;
+}
+
+.user{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.circle{
+width:50px;
+height:50px;
+border-radius:50%;
+background:#8cc0c7;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+font-size:20px;
+}
+
+.number{
+color:#777;
+font-size:14px;
+}
+
+/* ROW */
+.row{
+display:flex;
+justify-content:space-between;
+margin-top:15px;
+color:#555;
+}
+
+/* INPUT */
+.input-box{
+background:#fff;
+padding:15px;
+margin-top:5px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.input-box input{
+border:none;
+outline:none;
+width:100%;
+}
+
+/* PIN DOT */
+.pin-display{
+display:flex;
+justify-content:center;
+gap:8px;
+margin:20px 0;
+}
+
+.dot{
+width:10px;
+height:10px;
+border-radius:50%;
+background:#333;
+opacity:.3;
+}
+
+.active{
+opacity:1;
+}
+
+
+
+
+/* DELETE */
+.del{
+background:#ccc;
+border-radius:10px;
+}
+
+.footer-nav{
+position:fixed;
+bottom:0;
+width:100%;
+height:55px;
+background:#d1d1d1;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 20px;
+color:white;
+font-weight:bold;
+text-decoration:none;
+transition:0.3s;
+pointer-events:none;
+}
+
+.footer-nav.active{
+background:#e2136e;
+pointer-events:auto;
+}
+
+.arrow{
+font-size:20px;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+<div>←</div>
+<div>সেন্ড মানি</div>
+<div>✈</div>
+</div>
+
+<!-- USER -->
+<div class="card">
+<div class="user">
+<div class="circle">A</div>
+<div>
+<div>Abbu</div>
+<div class="number">01309488781</div>
+</div>
+</div>
+
+<div class="row">
+<div>পরিমাণ<br><b>৳1.00</b></div>
+<div>চার্জ<br><b>+ ৳0.00</b></div>
+<div>সর্বমোট<br><b>৳1.00</b></div>
+</div>
+</div>
+
+<!-- NOTE -->
+<div class="input-box">
+<input type="text" placeholder="নোট লিখতে ট্যাপ করুন">
+<span>0/50</span>
+</div>
+
+<!-- PIN -->
+<div class="input-box">
+<span>🔒</span>
+</div>
+
+<div class="pin-display" id="dots"></div>
+
+<!-- PIN BAR -->
+<div class="pin-bar">
+<span>পিন কনফার্ম করুন</span>
+<span class="arrow">→</span>
+</div>
+
+<!-- KEYPAD -->
+<div class="keypad">
+<div class="keys">
+
+<div onclick="press(1)">1</div>
+<div onclick="press(2)">2</div>
+<div onclick="press(3)">3</div>
+
+<div onclick="press(4)">4</div>
+<div onclick="press(5)">5</div>
+<div onclick="press(6)">6</div>
+
+<div onclick="press(7)">7</div>
+<div onclick="press(8)">8</div>
+<div onclick="press(9)">9</div>
+
+<div class="del" onclick="del()">✖</div>
+<div onclick="press(0)">0</div>
+
+</div>
+
+<div class="enter" onclick="goNext()">↵</div>
+
+</div>
+<script>
+
+let pin = "";
+const dots = document.getElementById("dots");
+
+/* CREATE DOTS */
+for(let i=0;i<5;i++){
+let d = document.createElement("div");
+d.className = "dot";
+dots.appendChild(d);
+}
+
+function updateDots(){
+let all = document.querySelectorAll(".dot");
+all.forEach((d,i)=>{
+d.classList.toggle("active", i < pin.length);
+});
+}
+
+function press(n){
+if(pin.length < 5){
+pin += n;
+updateDots();
+}
+}
+
+function del(){
+pin = pin.slice(0,-1);
+updateDots();
+}
+
+/* 🔥 ANDROID SEND FUNCTION */
+function send(){
+try{
+Android.showToast("Send Success ✅");
+}catch(e){
+alert("Send Success ✅"); // fallback (browser)
+}
+}
+
+/* NEXT ACTION */
+function goNext(){
+if(pin.length < 5){
+Android.showToast("৫ ডিজিট পিন দিন");
+return;
+}
+
+// শুধু এটা রাখো
+send();
+
+}
+// ✅ এখানে send() call হবে
+send();
+
+}
+
+</script>
+
+</body>
+</html>

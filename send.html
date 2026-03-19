@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Segoe UI;
+background:#f5f5f5;
+}
+
+/* header */
+.header{
+background:#e2136e;
+color:white;
+padding:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:18px;
+}
+
+.back{font-size:22px;}
+.icon{font-size:18px;}
+
+/* card */
+.card{
+background:white;
+margin:15px;
+padding:15px;
+border-radius:10px;
+}
+
+.user{
+display:flex;
+align-items:center;
+gap:10px;
+margin-bottom:15px;
+}
+
+.avatar{
+width:50px;
+height:50px;
+border-radius:50%;
+background:#e2136e;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+font-weight:bold;
+}
+
+.number{
+font-size:13px;
+color:#777;
+}
+
+.row{
+display:flex;
+justify-content:space-between;
+text-align:center;
+}
+
+.row div{
+flex:1;
+}
+
+/* input */
+.input-box{
+background:white;
+margin:10px 15px;
+padding:10px;
+border-radius:8px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+input{
+border:none;
+outline:none;
+flex:1;
+font-size:16px;
+}
+
+/* pin bar */
+.pin-bar{
+position:fixed;
+bottom:220px;
+width:100%;
+background:#e2136e;
+color:white;
+display:flex;
+justify-content:space-between;
+padding:15px;
+font-weight:bold;
+}
+
+/* keypad */
+.keypad{
+position:fixed;
+bottom:0;
+width:100%;
+background:white;
+padding:10px;
+}
+
+.keys{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+}
+
+.keys div{
+background:#f1f1f1;
+padding:15px;
+text-align:center;
+font-size:18px;
+border-radius:8px;
+}
+
+.enter{
+background:#e2136e !important;
+color:white;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+<div class="back">←</div>
+<div>পেমেন্ট</div>
+<div class="icon">✈</div>
+</div>
+
+<!-- CARD -->
+<div class="card">
+
+<div class="user">
+<div class="avatar" id="avatar">A</div>
+<div>
+<div id="name">Loading...</div>
+<div class="number" id="number">---</div>
+</div>
+</div>
+
+<div class="row">
+<div>পরিমাণ<br><b id="amount">৳0</b></div>
+<div>চার্জ<br><b>+৳0.00</b></div>
+<div>সর্বমোট<br><b id="total">৳0</b></div>
+</div>
+
+</div>
+
+<!-- NOTE -->
+<div class="input-box">
+<input type="text" placeholder="নোট লিখুন">
+<span>0/50</span>
+</div>
+
+<!-- PIN -->
+<div class="input-box">
+<span>🔒</span>
+<input type="password" id="pin" placeholder="পিন দিন" readonly>
+<span>🔐</span>
+</div>
+
+<!-- PIN BAR -->
+<div class="pin-bar">
+<span>পিন কনফার্ম করুন</span>
+<span>→</span>
+</div>
+
+<!-- KEYPAD -->
+<div class="keypad">
+<div class="keys">
+
+<div onclick="press(1)">1</div>
+<div onclick="press(2)">2</div>
+<div onclick="press(3)">3</div>
+
+<div onclick="press(4)">4</div>
+<div onclick="press(5)">5</div>
+<div onclick="press(6)">6</div>
+
+<div onclick="press(7)">7</div>
+<div onclick="press(8)">8</div>
+<div onclick="press(9)">9</div>
+
+<div onclick="del()">✖</div>
+<div onclick="press(0)">0</div>
+<div class="enter" onclick="submitPin()">↵</div>
+
+</div>
+</div>
+
+<script>
+
+/* 🔥 AUTO LOAD DATA */
+window.onload = function(){
+
+let number = localStorage.getItem("send_num");
+let name = localStorage.getItem("send_name");
+let amount = localStorage.getItem("send_amount");
+
+// fallback
+if(!number) number = "01XXXXXXXXX";
+if(!name) name = "User";
+if(!amount) amount = "0";
+
+// set UI
+document.getElementById("name").innerText = name;
+document.getElementById("number").innerText = number;
+document.getElementById("amount").innerText = "৳" + amount;
+document.getElementById("total").innerText = "৳" + amount;
+
+// avatar
+document.getElementById("avatar").innerText = name.charAt(0);
+
+}
+
+/* PIN SYSTEM */
+
+let pinInput = document.getElementById("pin");
+
+function press(num){
+if(pinInput.value.length < 5){
+pinInput.value += num;
+}
+}
+
+function del(){
+pinInput.value = pinInput.value.slice(0,-1);
+}
+
+function submitPin(){
+
+if(pinInput.value.length < 5){
+alert("৫ সংখ্যার পিন দিন");
+return;
+}
+
+// fake success
+alert("✅ টাকা পাঠানো হয়েছে!");
+
+pinInput.value = "";
+
+}
+
+</script>
+
+</body>
+</html>

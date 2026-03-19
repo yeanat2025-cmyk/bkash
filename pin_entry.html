@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Money - Confirm Pin</title>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Segoe UI, sans-serif; }
+        body { background: #f2f2f2; }
+
+        /* HEADER */
+        .header { background: #e2136e; color: white; padding: 15px; display: flex; justify-content: space-between; font-weight: bold; }
+
+        /* CARD */
+        .card { background: white; padding: 15px; border-bottom: 1px solid #ddd; }
+        .user { display: flex; gap: 10px; align-items: center; }
+        .circle { width: 50px; height: 50px; border-radius: 50%; background: #8cc0c7; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; font-weight: bold; }
+        .row { display: flex; justify-content: space-between; margin-top: 15px; font-size: 14px; color: #333; }
+
+        /* INPUT BOXES */
+        .input-box { background: white; padding: 15px; margin-top: 5px; color: #666; border-bottom: 1px solid #eee; }
+
+        /* PIN BAR */
+        .pin-bar { position: fixed; bottom: 280px; width: 100%; background: #999; color: white; padding: 15px; display: flex; justify-content: space-between; pointer-events: none; transition: 0.3s; z-index: 10; }
+        .pin-bar.active { background: #e2136e; pointer-events: auto; }
+
+        /* PIN DOTS */
+        .pin-display { display: flex; justify-content: center; gap: 12px; padding: 20px 0; background: #f2f2f2; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; border: 1px solid #333; transition: 0.2s; }
+        .dot.filled { background: #333; opacity: 1; }
+
+        /* KEYPAD */
+        .keypad { position: fixed; bottom: 0; width: 100%; background: #e0e0e0; padding: 10px; height: 270px; }
+        .keys { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; }
+        .keys div { padding: 15px; font-size: 24px; color: #444; cursor: pointer; }
+        .del { background: #d0d0d0; border-radius: 5px; }
+        .enter { background: #d0d0d0; border-radius: 50%; }
+
+        /* SUCCESS SCREEN */
+        .success { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; display: none; justify-content: center; align-items: center; flex-direction: column; z-index: 100; }
+        .tick { font-size: 80px; color: #e2136e; margin-bottom: 10px; }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <div onclick="history.back()">←</div>
+    <div>সেন্ড মানি</div>
+    <div>✈</div>
+</div>
+
+<div class="card">
+    <div class="user">
+        <div class="circle" id="avatarLetter">?</div>
+        <div>
+            <div id="display-name" style="font-weight: bold;">Loading...</div>
+            <div id="display-number" style="color: #666; font-size: 14px;">01XXXXXXXXX</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div>পরিমাণ: <b id="display-amount">৳0.00</b></div>
+        <div>চার্জ: ৳0.00</div>
+        <div>সর্বমোট: <b id="display-total">৳0.00</b></div>
+    </div>
+</div>
+
+<div class="input-box">নোট লিখতে ট্যাপ করুন</div>
+<div class="input-box">🔒 পিন নাম্বার দিন</div>
+
+<div class="pin-display" id="pinDots">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+</div>
+
+<div class="pin-bar" id="confirmBar">
+    <span>পিন কনফার্ম করুন</span>
+    <span onclick="goNext()">➔</span>
+</div>
+
+<div class="success" id="successScreen">
+    <div class="tick">✔</div>
+    <div style="font-weight: bold; color: #e2136e;">প্রসেসিং হচ্ছে...</div>
+</div>
+
+<div class="keypad">
+    <div class="keys">
+        <div onclick="press(1)">1</div><div onclick="press(2)">2</div><div onclick="press(3)">3</div>
+        <div onclick="press(4)">4</div><div onclick="press(5)">5</div><div onclick="press(6)">6</div>
+        <div onclick="press(7)">7</div><div onclick="press(8)">8</div><div onclick="press(9)">9</div>
+        <div class="del" onclick="del()">✖</div><div onclick="press(0)">0</div>
+        <div class="enter" onclick="goNext()">↵</div>
+    </div>
+</div>
+
+<script>
+    let pin = "";
+    const confirmBar = document.getElementById("confirmBar");
+    const dots = document.querySelectorAll(".dot");
+
+    // ১. লোড ডেটা (পূর্বের পেজ থেকে আসা ডেটা)
+    window.onload = function() {
+        let name = localStorage.getItem("send_name") || "Unknown User";
+        let num = localStorage.getItem("send_num") || "01000000000";
+        let amount = localStorage.getItem("send_amount") || "0";
+        let color = localStorage.getItem("send_color") || "#e2136e";
+        
+        document.getElementById("display-name").innerText = name;
+        document.getElementById("display-number").innerText = num;
+        document.getElementById("display-amount").innerText = "৳" + amount;
+        document.getElementById("display-total").innerText = "৳" + amount;
+        
+        let avatar = document.getElementById("avatarLetter");
+        avatar.innerText = name.charAt(0).toUpperCase();
+        avatar.style.background = color;
+    };
+
+    function updatePinUI() {
+        dots.forEach((dot, index) => {
+            if (index < pin.length) {
+                dot.classList.add("filled");
+            } else {
+                dot.classList.remove("filled");
+            }
+        });
+
+        if (pin.length === 5) {
+            confirmBar.classList.add("active");
+        } else {
+            confirmBar.classList.remove("active");
+        }
+    }
+
+    function press(n) {
+        if (pin.length < 5) {
+            pin += n;
+            updatePinUI();
+        }
+    }
+
+    function del() {
+        pin = pin.slice(0, -1);
+        updatePinUI();
+    }
+
+    function goNext() {
+    if (pin.length < 5) {
+        alert("৫ ডিজিট পিন দিন");
+        return;
+    }
+
+    // পিন ৫ ডিজিট হলে কোনো সাকসেস স্ক্রিন ছাড়াই সরাসরি ডেটা সেভ হবে
+    let now = new Date();
+    
+    // সময় ফরম্যাট (যেমন: 09:44pm 19/03/26)
+    let timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: true}).toLowerCase() + " " + now.toLocaleDateString('en-GB');
+    
+    // র‍্যান্ডম ট্রানজেকশন আইডি
+    let trxID = "TRX" + Math.random().toString(36).substr(2, 9).toUpperCase();
+
+    // LocalStorage-এ প্রয়োজনীয় সব ডেটা সেভ করা
+    localStorage.setItem("trx_time", timeString);
+    localStorage.setItem("trx_id", trxID);
+    
+    // এখানে আপনার বর্তমান ব্যালেন্স থেকে পাঠানো টাকা বিয়োগ করে নতুন ব্যালেন্স সেট করতে পারেন
+    // আপাতত একটি ডেমো ভ্যালু দিচ্ছি
+    localStorage.setItem("new_balance", "509.80"); 
+
+    // সরাসরি received.html পেজে চলে যাবে (কোনো দেরি বা টিক চিহ্ন ছাড়াই)
+    window.location.href = "received.html";
+}
+
+
+
+</script>
+
+</body>
+</html>

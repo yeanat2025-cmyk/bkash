@@ -1,0 +1,169 @@
+/* RESET */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:#f5f6fa;
+}
+
+/* HEADER */
+.header{
+background:linear-gradient(90deg,#e2136e,#ff4d8d);
+color:white;
+padding:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-weight:bold;
+font-size:18px;
+box-shadow:0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* CARD */
+.card{
+background:white;
+margin:12px;
+padding:15px;
+border-radius:15px;
+box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+.user{
+display:flex;
+gap:12px;
+align-items:center;
+}
+
+.user img{
+width:55px;
+height:55px;
+border-radius:50%;
+border:2px solid #eee;
+}
+
+.number{
+color:#888;
+font-size:13px;
+}
+
+.row{
+display:flex;
+justify-content:space-between;
+margin-top:12px;
+text-align:center;
+}
+
+.row div{
+font-size:14px;
+}
+
+.row b{
+color:#e2136e;
+}
+
+/* INPUT */
+.input-box{
+background:white;
+margin:10px 12px;
+padding:15px;
+border-radius:12px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 2px 6px rgba(0,0,0,0.05);
+}
+
+.input-box input{
+border:none;
+outline:none;
+width:100%;
+font-size:15px;
+}
+
+/* PIN BAR */
+.pin-bar{
+position:fixed;
+bottom:260px;
+width:100%;
+background:#444;
+color:white;
+padding:12px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:14px;
+}
+
+/* BUTTON */
+.next-btn{
+background:#ff4d8d;
+padding:8px 14px;
+border-radius:20px;
+cursor:pointer;
+font-weight:bold;
+}
+
+/* KEYPAD */
+.keypad{
+position: fixed;
+bottom: 0;
+width: 100%;
+background: #f2f2f2;
+padding: 12px;
+box-shadow:0 -3px 10px rgba(0,0,0,0.1);
+}
+
+.keys{
+display:grid;
+grid-template-columns: repeat(3,1fr);
+gap:12px;
+}
+
+.keys div{
+background:white;
+padding:18px;
+text-align:center;
+font-size:20px;
+border-radius:12px;
+box-shadow:0 2px 5px rgba(0,0,0,0.08);
+transition:0.2s;
+}
+
+.keys div:active{
+transform:scale(0.95);
+background:#ddd;
+}
+
+.enter{
+background:#e2136e !important;
+color:white;
+font-weight:bold;
+}
+
+/* FLOAT BUTTON */
+.next-fab{
+position: fixed;
+bottom: 320px;
+right: 20px;
+background: linear-gradient(45deg,#e2136e,#ff4d8d);
+width: 60px;
+height: 60px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+font-size: 26px;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* PIN INPUT */
+#pin{
+font-size:18px;
+letter-spacing:5px;
+text-align:center;
+}

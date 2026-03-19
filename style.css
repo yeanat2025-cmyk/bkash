@@ -1,0 +1,343 @@
+/* --- Global Reset --- */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+}
+
+body { 
+    background-color: #f5f5f5; 
+    padding-bottom: 90px; 
+    overflow-x: hidden; 
+}
+
+/* --- Header Section (Gradient & City Pattern) --- */
+.header {
+    background: linear-gradient(to right, #e2136e, #b11055); /* bKash Pink Gradient */
+    height: 180px;
+    padding: 25px 15px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Mosque/City Silhouette Effect */
+.header::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-image: url('https://www.transparenttextures.com/patterns/city-lights.png'); 
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+.header-content { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: flex-start; 
+    position: relative; 
+    z-index: 2; 
+}
+
+/* Profile Section */
+.user-profile-section { display: flex; align-items: center; gap: 10px; }
+
+.profile-logo {
+    width: 48px; 
+    height: 48px; 
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    font-size: 20px; 
+    font-weight: bold; 
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.user-id { 
+    font-size: 13px; 
+    margin-bottom: 4px; 
+    font-weight: normal; 
+    letter-spacing: 0.5px;
+}
+
+/* Balance Style */
+.balance-container {
+    background: white; 
+    color: #e2136e; 
+    height: 32px; 
+    min-width: 140px;
+    border-radius: 20px; 
+    display: flex; 
+    align-items: center; 
+    padding: 0 4px; 
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.bkash-logo-circle {
+    background: #e2136e; 
+    color: white; 
+    width: 24px; 
+    height: 24px;
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    font-size: 14px; 
+    margin-right: 8px;
+}
+
+.balance-text { 
+    font-size: 15px; 
+    font-weight: 500; 
+    transition: opacity 0.3s ease;
+}
+
+/* Header Top-Right Icons */
+.header-icons { display: flex; gap: 10px; align-items: center; }
+
+.search-icon-circle { 
+    background: white; 
+    color: #777; 
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 18px;
+}/* Bird Menu Wrapper */
+/* Bird Menu Wrapper */
+.bird-menu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* White Circle for Bird */
+.bird-circle {
+    background: #ffffff;
+    width: 44px; /* Size ektu boro kora holo */
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15); /* Premium shadow */
+}
+
+.bird-circle img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Dots below the bird */
+.menu-dots {
+    display: flex;
+    gap: 2px;
+    margin-top: 5px;
+    background: rgba(255, 255, 255, 0.25);
+    padding: 2px 6px;
+    border-radius: 10px;
+}
+
+.menu-dots span {
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+}
+
+/* Three Dots Menu below the bird */
+.menu-dots {
+    display: flex;
+    gap: 2px;
+    margin-top: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 6px;
+    border-radius: 10px;
+}
+
+.menu-dots span {
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+}
+
+/* --- Main Features Card --- */
+.main-card {
+    background: white; 
+    margin: -40px 12px 15px; 
+    border-radius: 15px;
+    padding: 20px 10px 10px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    position: relative; 
+    z-index: 5;
+}
+
+.menu-grid { 
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px 0; 
+}
+
+.menu-item { 
+    text-align: center; 
+    text-decoration: none; 
+    color: #333; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.menu-item img { width: 48px; height: 48px; margin-bottom: 6px; }
+
+.menu-item p { 
+    font-size: 11px; 
+    font-weight: 600; 
+    color: #444; 
+    white-space: nowrap;
+}
+
+.more-btn-container { 
+    text-align: center; 
+    margin-top: 15px; 
+    border-top: 1px solid #f5f5f5; 
+    padding-top: 10px; 
+}
+
+.more-btn { 
+    background: none; 
+    border: none; 
+    color: #e2136e; 
+    font-size: 12px; 
+    font-weight: bold; 
+}
+
+/* --- Banner Slider (Height 150px) --- */
+.slider-container { 
+    margin: 10px 12px; 
+    border-radius: 12px; 
+    height: 150px; 
+    position: relative; 
+    overflow: hidden; 
+    background: #ddd;
+}
+
+.slider-wrapper { 
+    display: flex; 
+    width: 500%; 
+    height: 100%; 
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+
+.slide { width: 100%; height: 100%; }
+
+.slide img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+}
+
+.dots-container { 
+    display: flex; 
+    justify-content: center; 
+    gap: 6px; 
+    margin-top: 8px; 
+}
+
+.dot { 
+    width: 7px; 
+    height: 7px; 
+    background: #ccc; 
+    border-radius: 50%; 
+    transition: 0.3s;
+}
+
+.dot.active { 
+    background: #e2136e; 
+    width: 18px; 
+    border-radius: 10px; 
+}
+
+/* --- Quick Offers Cards (Updated Size) --- */
+.offers-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 20px 12px;
+}
+
+.offer-card {
+    border-radius: 15px;
+    padding: 20px 10px; 
+    min-height: 115px; 
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.03);
+    transition: 0.2s;
+}
+
+.offer-card img { width: 42px; height: 42px; margin-bottom: 10px; }
+
+.offer-card p { font-size: 13px; font-weight: 600; color: #333; }
+
+.my-offers { background-color: #fff9e6; } /* Light Yellow */
+.coupon { background-color: #e6f7f9; }    /* Light Blue */
+.rewards { background-color: #fcfce8; }   /* Light Green */
+
+.offer-card:active { transform: scale(0.96); }
+
+/* --- Bottom Navigation (Large Size) --- */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 80px; /* Boro kora holo */
+    border-top: 1px solid #eee;
+    z-index: 1000;
+    box-shadow: 0 -2px 15px rgba(0,0,0,0.05);
+}
+
+.nav-item {
+    text-align: center;
+    text-decoration: none;
+    color: #888;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-icon {
+    font-size: 26px; /* Icon size barano holo */
+}
+
+.nav-item p {
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.nav-item.active { color: #e2136e; }
+
+/* Click Animation for Balance */
+.balance-text.fade { opacity: 0; }
+

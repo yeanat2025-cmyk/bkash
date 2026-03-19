@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Send Money</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:#fcfcfc;
+}
+
+/* header */
+
+.app-bar{
+background:#e2136e;
+color:white;
+padding:15px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+.left{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.back-btn{
+text-decoration:none;
+color:white;
+font-size:22px;
+}
+
+.logo-bird{
+width:25px;
+}
+
+/* recipient */
+
+.section-label{
+padding:15px 15px 5px;
+font-size:13px;
+color:#777;
+}
+
+.recipient-card{
+display:flex;
+align-items:center;
+padding:10px 15px 20px;
+border-bottom:1px solid #f0f0f0;
+background:white;
+}
+
+.avatar{
+width:50px;
+height:50px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+font-weight:bold;
+font-size:20px;
+margin-right:15px;
+}
+
+.info p{
+font-size:15px;
+font-weight:600;
+color:#333;
+}
+
+.info span{
+font-size:13px;
+color:#777;
+}
+
+/* amount */
+
+.amount-section{
+padding:40px 15px;
+text-align:center;
+background:white;
+}
+
+.amount-title{
+font-size:14px;
+color:#888;
+margin-bottom:10px;
+}
+
+.amount-container{
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.currency{
+font-size:35px;
+color:#ccc;
+margin-right:5px;
+}
+
+.amount-input{
+border:none;
+outline:none;
+font-size:45px;
+width:140px;
+text-align:center;
+background:transparent;
+color:#444;
+}
+
+.balance-info{
+margin-top:10px;
+font-size:13px;
+color:#777;
+}
+
+/* next button */
+
+.footer-nav{
+position:fixed;
+bottom:0;
+width:100%;
+height:55px;
+background:#d1d1d1;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 20px;
+color:white;
+font-weight:bold;
+text-decoration:none;
+transition:0.3s;
+pointer-events:none;
+}
+
+.footer-nav.active{
+background:#e2136e;
+pointer-events:auto;
+}
+
+.arrow{
+font-size:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="app-bar">
+
+<div class="left">
+<a href="sendmoney.html" class="back-btn">←</a>
+<span>সেন্ট মানি</span>
+</div>
+
+<img src="https://img.icons8.com/color/48/bird.png" class="logo-bird">
+
+</div>
+
+<p class="section-label">প্রাপক</p>
+
+<div class="recipient-card">
+
+<div class="avatar" id="avatarLetter">A</div>
+
+<div class="info">
+<p id="displayName">Loading...</p>
+<span id="displayNumber">01xxxxxxxxx</span>
+</div>
+
+</div>
+
+<div class="amount-section">
+
+<p class="amount-title">পরিমাণ</p>
+
+<div class="amount-container">
+<span class="currency">৳</span>
+<input type="number" id="amountInput" class="amount-input" placeholder="0">
+</div>
+
+<p class="balance-info">ব্যবহারযোগ্য ব্যালেন্স: ৳ ৫,৫০০.৫০</p>
+
+</div>
+
+<a href="pin_entry.html" class="footer-nav" id="nextBtn">
+এগিয়ে যান
+<span class="arrow">→</span>
+</a>
+
+<script>
+
+/* load data */
+
+let num = localStorage.getItem("send_num");
+let name = localStorage.getItem("send_name");
+let avatar = localStorage.getItem("send_avatar");
+let color = localStorage.getItem("send_color");
+
+if(num){
+
+document.getElementById("displayNumber").innerText = num;
+document.getElementById("displayName").innerText = name;
+
+let av = document.getElementById("avatarLetter");
+
+av.innerText = avatar;
+av.style.background = color;
+
+}
+
+/* amount button active */
+
+let amount = document.getElementById("amountInput");
+let next = document.getElementById("nextBtn");
+
+amount.oninput = function(){
+
+if(this.value > 0){
+next.classList.add("active");
+}else{
+next.classList.remove("active");
+}
+
+}
+
+/* save amount + go next */
+
+next.onclick = function(){
+
+let money = amount.value;
+
+// 🔥 amount save
+localStorage.setItem("send_amount", money);
+
+// 👉 NEXT PAGE
+window.location.href = "pin_entry.html";
+
+}
+
+</script>
+
+</body>
+</html>

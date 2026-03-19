@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background-color: #ffffff; color: #333; }
+
+        /* AppBar Style */
+        .app-bar {
+            background-color: #e2136e;
+            color: white;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .app-bar .left { display: flex; align-items: center; gap: 15px; }
+        .back-btn { font-size: 22px; text-decoration: none; color: white; cursor: pointer; }
+        .app-title { font-size: 18px; font-weight: 500; }
+        .logo-bird { width: 25px; }
+
+        /* Search Bar */
+        .search-container { padding: 15px; background: #fff; }
+        .search-box {
+            background: #fdfdfd;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .search-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 15px;
+            color: #444;
+        }
+
+        /* Top Feature Cards (Priyo, Auto Pay, Group) */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            padding: 10px 15px;
+        }
+        .feature-item {
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 15px 5px;
+            text-align: center;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .feature-icon { font-size: 22px; margin-bottom: 8px; color: #e2136e; }
+        .feature-item p { font-size: 12px; font-weight: 600; color: #555; }
+
+        /* Section Label */
+        .section-label {
+            background: #f8f8f8;
+            padding: 10px 15px;
+            font-size: 13px;
+            color: #777;
+            font-weight: 600;
+        }
+
+        /* Contact List */
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid #f9f9f9;
+            text-decoration: none;
+            color: inherit;
+        }
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            margin-right: 15px;
+        }
+        .info p { font-size: 15px; font-weight: 600; color: #333; margin-bottom: 2px; }
+        .info span { font-size: 13px; color: #777; }
+
+        /* Avatar Colors */
+        .bg-pink { background: #f06292; }
+        .bg-green { background: #81c784; }
+        .bg-brown { background: #a1887f; }
+        .bg-blue { background: #4fc3f7; }
+
+        /* Floating Next Button */
+        .next-fab {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #e2136e;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 4px 12px rgba(226, 19, 110, 0.3);
+            font-size: 24px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-bar">
+        <div class="left">
+            <a href="index.html" class="back-btn">←</a>
+            <span class="app-title">সেন্ট মানি</span>
+        </div>
+        <img src="https://img.icons8.com/color/48/bird.png" class="logo-bird" alt="bKash Logo">
+    </div>
+
+    <div class="search-container">
+        <div class="search-box">
+            <span style="color: #bbb;">🔍</span>
+            <input type="text" placeholder="নাম বা নম্বর দিন" maxlength="11">
+        </div>
+    </div>
+
+    <div class="features-grid">
+        <div class="feature-item">
+            <div class="feature-icon">👤</div>
+            <p>প্রিয় নম্বর (5)</p>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon">🔄</div>
+            <p>অটো পে</p>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon">👥</div>
+            <p>গ্রুপ সেন্ট মানি</p>
+        </div>
+    </div>
+
+    <div class="section-label">সাম্প্রতিক</div>
+    <div class="contact-list">
+        <a href="sendmoney_amount.html" class="contact-item">
+            <div class="avatar bg-pink">S</div>
+            <div class="info">
+                <p>Shakil ! B</p>
+                <span>01878928634</span>
+            </div>
+        </a>
+        <div class="contact-item">
+            <div class="avatar bg-green">B</div>
+            <div class="info">
+                <p>Babu kaka</p>
+                <span>01838981415</span>
+            </div>
+        </div>
+        <div class="contact-item">
+            <div class="avatar bg-brown">T</div>
+            <div class="info">
+                <p>Tuhin | bro</p>
+                <span>01820812250</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-label">সব কন্টাক্টস</div>
+    <div class="contact-list">
+        <div class="contact-item">
+            <div class="avatar bg-blue">A</div>
+            <div class="info">
+                <p>Abbu</p>
+                <span>01309488781</span>
+            </div>
+        </div>
+        <div class="contact-item">
+            <div class="avatar bg-green">A</div>
+            <div class="info">
+                <p>Abbu</p>
+                <span>01404696321</span>
+            </div>
+        </div>
+    </div>
+
+    <a href="sendmoney_amount.html" class="next-fab">→</a>
+	
+	<script>
+	  
+	  // ১. কন্টাক্ট লিস্টে ক্লিক করলে ডাটা সেভ এবং পেজ ট্রান্সফার
+document.querySelectorAll('.contact-item').forEach(item => {
+    item.onclick = function(e) {
+        e.preventDefault(); // ডিফল্ট লিঙ্ক ক্লিক আটকানো
+        
+        const number = this.querySelector('.info span').innerText;
+        const name = this.querySelector('.info p').innerText;
+        const avatar = this.querySelector('.avatar').innerText;
+        const bgColor = window.getComputedStyle(this.querySelector('.avatar')).backgroundColor;
+
+        // লোকাল মেমোরিতে সেভ
+        localStorage.setItem('send_num', number);
+        localStorage.setItem('send_name', name);
+        localStorage.setItem('send_avatar', avatar);
+        localStorage.setItem('send_color', bgColor);
+
+        // এবার দ্বিতীয় পেজে নিয়ে যাও
+        window.location.href = "sendmoney_amount.html";
+    };
+});
+
+// ২. ইনপুট বক্সে নম্বর লিখে পরবর্তী (FAB) বাটনে ক্লিক করলে
+document.querySelector('.next-fab').onclick = function(e) {
+    const inputNum = document.querySelector('.search-box input').value;
+    
+    if(inputNum.length >= 11) {
+        localStorage.setItem('send_num', inputNum);
+        localStorage.setItem('send_name', 'বিকাশ গ্রাহক');
+        localStorage.setItem('send_avatar', inputNum.charAt(0));
+        localStorage.setItem('send_color', '#e2136e');
+        // রিডাইরেক্ট হবে কারণ লিঙ্কে href দেওয়া আছে
+    } else {
+        e.preventDefault();
+        alert("সঠিক নম্বর দিন");
+    }
+};
+
+
+<script src="sendmoney.js"></script>
+
+</body>
+</html>

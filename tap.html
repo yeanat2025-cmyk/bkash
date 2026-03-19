@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    margin:0;
+    background:#f2f2f2;
+    overflow:hidden;
+}
+
+/* Image */
+.bg-img{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    pointer-events:none;
+}
+
+/* 🔥 Curve container */
+.progress-wrap{
+    position:fixed;
+    bottom:60px;
+    width:100%;
+    height:80px;
+    overflow:hidden;
+}
+
+/* White line */
+.base{
+    position:absolute;
+    width:100%;
+    height:80px;
+    border-top:4px solid white;
+    border-radius:50%;
+    opacity:0.6;
+}
+
+/* 🔥 Pink progress */
+.progress{
+    position:absolute;
+    width:0%;
+    height:80px;
+    border-top:7px solid #ff4d8d;
+    border-radius:50%;
+}
+
+/* Touch */
+#btn{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    height:180px;
+}
+</style>
+</head>
+
+<body>
+
+<img src="assets/bg.jpg" class="bg-img">
+
+<div class="progress-wrap">
+    <div class="base"></div>
+    <div id="bar" class="progress"></div>
+</div>
+
+<div id="btn"></div>
+
+<script>
+let timer;
+let p = 0;
+
+const btn = document.getElementById("btn");
+const bar = document.getElementById("bar");
+
+function start(){
+    clearInterval(timer);
+    p = 0;
+
+    timer = setInterval(()=>{
+        p += 2;
+
+        bar.style.width = p + "%"; // 🔥 full width control
+
+        if(p >= 100){
+            clearInterval(timer);
+            bar.style.width = "100%";
+            alert("✅ Done!");
+        }
+    },20);
+}
+
+function stop(){
+    clearInterval(timer);
+    p = 0;
+    bar.style.width = "0%";
+}
+
+btn.onpointerdown = start;
+btn.onpointerup = stop;
+btn.onpointerleave = stop;
+btn.onpointercancel = stop;
+</script>
+
+</body>
+</html>
